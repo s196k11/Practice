@@ -15,31 +15,31 @@ abstract class WordRoomDatabase : RoomDatabase() {
     abstract fun wordDao(): WordDao
 
 
-    private class WordDatabaseCallback(
-        private val scope: CoroutineScope
-    ) : RoomDatabase.Callback() {
-
-        override fun onCreate(db: SupportSQLiteDatabase) {
-            super.onCreate(db)
-            INSTANCE?.let { database ->
-                scope.launch {
-                    var wordDao = database.wordDao()
-
-                    // Delete all content here.
-                    wordDao.deleteAll()
-
-                    // Add sample words.
-                    var word = Word("Hello")
-                    wordDao.insert(word)
-                    word = Word("World!")
-                    wordDao.insert(word)
-
-                    word = Word("Its Soku")
-                    wordDao.insert(word)
-                }
-            }
-        }
-    }
+//    private class WordDatabaseCallback(
+//        private val scope: CoroutineScope
+//    ) : RoomDatabase.Callback() {
+//
+//        override fun onCreate(db: SupportSQLiteDatabase) {
+//            super.onCreate(db)
+//            INSTANCE?.let { database ->
+//                scope.launch {
+//                    var wordDao = database.wordDao()
+//
+//                    // Delete all content here.
+//                    wordDao.deleteAll()
+//
+//                    // Add sample words.
+//                    var word = Word("Hello")
+////                    wordDao.insert(word)
+////                    word = Word("World!")
+////                    wordDao.insert(word)
+//
+//                    word = Word("Its Soku")
+//                    wordDao.insert(word)
+//                }
+//            }
+//        }
+//    }
 
     companion object {
         @Volatile
@@ -57,7 +57,7 @@ abstract class WordRoomDatabase : RoomDatabase() {
                     WordRoomDatabase::class.java,
                     "word_database"
                 )
-                    .addCallback(WordDatabaseCallback(scope))
+//                    .addCallback(WordDatabaseCallback(scope))
                     .build()
                 INSTANCE = instance
                 // return instance

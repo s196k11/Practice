@@ -30,6 +30,7 @@ import com.example.practice.RoomDatabase.WordApplication
 import com.example.practice.RoomDatabase.WordViewModel
 import com.example.practice.RoomDatabase.WordViewModelFactory
 import com.example.practice.RoomDatabase.screens.DisplayCard
+import com.example.practice.RoomDatabase.screens.MainScreen
 
 import com.example.practice.ui.theme.PracticeTheme
 
@@ -42,17 +43,9 @@ class MainActivity : ComponentActivity() {
                 val wordViewModel: WordViewModel by viewModels {
                     WordViewModelFactory((application as WordApplication).repository)
                 }
-                
-
-                val list = wordViewModel.allWords.observeAsState().value
-
-                LazyColumn {
-                    items(list!!) { word ->
-                        Text(text = word.word)
-                    }
-                }
 
 
+                MainScreen(viewModel = wordViewModel)
 
             }
         }

@@ -1,15 +1,12 @@
 package com.example.practice.RoomDatabase
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 
 @Dao
 interface WordDao {
-    @Query("Select * from word_table order by word ASC")
+    @Query("SELECT * FROM word_table ORDER BY word ASC")
     fun getAlphabetizedWords(): Flow<List<Word>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -17,4 +14,7 @@ interface WordDao {
 
     @Query("Delete from word_table")
     suspend fun deleteAll()
+
+    @Delete
+    suspend fun delete(word: Word)
 }
